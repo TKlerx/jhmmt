@@ -23,6 +23,8 @@ package be.ac.ulg.montefiore.run.jahmm.io;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 import be.ac.ulg.montefiore.run.jahmm.ObservationInteger;
 import be.ac.ulg.montefiore.run.jahmm.OpdfInteger;
@@ -38,9 +40,9 @@ extends OpdfWriter<OpdfInteger>
 	throws IOException
 	{
 		String s = "IntegerOPDF [";
-		
+		DecimalFormat formatter = new DecimalFormat("#0.######");
 		for (int i = 0; i < opdf.nbEntries(); i++)
-			s += opdf.probability(new ObservationInteger(i)) + " ";
+			s += formatter.format(opdf.probability(new ObservationInteger(i))) + " ";
 			
 		writer.write(s + "]\n");
 	}

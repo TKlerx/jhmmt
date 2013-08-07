@@ -24,6 +24,9 @@ package be.ac.ulg.montefiore.run.jahmm.io;
 import java.io.IOException;
 import java.io.Writer;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import be.ac.ulg.montefiore.run.jahmm.*;
 
@@ -31,7 +34,9 @@ import be.ac.ulg.montefiore.run.jahmm.*;
  * Writes a HMM to a text file compatible with {@link HmmReader}.
  */
 public class HmmWriter {
-	public HmmWriter() {
+	
+	static{
+		Locale.setDefault(Locale.ENGLISH);
 	}
 
 	/**
@@ -58,8 +63,10 @@ public class HmmWriter {
 	// Cannot guarantee type safety
 	static private <O extends Observation, D extends Opdf<O>> void writeState(Writer writer, OpdfWriter<D> opdfWriter, Hmm<O> hmm, int stateNb)
 			throws IOException {
+//		NumberFormat formatter = NumberFormat.getInstance();
+		
+		
 		DecimalFormat formatter = new DecimalFormat("#0.######");
-
 		writer.write("State\nPi " + formatter.format(hmm.getPi(stateNb)));
 
 		writer.write("\nA ");
