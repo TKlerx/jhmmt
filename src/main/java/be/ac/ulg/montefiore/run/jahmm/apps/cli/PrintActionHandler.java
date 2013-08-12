@@ -43,6 +43,7 @@ class PrintActionHandler extends ActionHandler
 		CommandLineArguments.checkArgs(args);
 		
 		InputStream in = Arguments.IN_HMM.getAsInputStream();
+		@SuppressWarnings("rawtypes")
 		OpdfReader opdfReader = new OpdfGenericReader();
 		Hmm<?> hmm = HmmReader.read(new InputStreamReader(in), opdfReader);
 		

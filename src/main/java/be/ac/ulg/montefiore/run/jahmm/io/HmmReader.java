@@ -21,13 +21,16 @@
 
 package be.ac.ulg.montefiore.run.jahmm.io;
 
-import java.io.*;
-import java.text.NumberFormat;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StreamTokenizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import be.ac.ulg.montefiore.run.jahmm.*;
+import be.ac.ulg.montefiore.run.jahmm.Hmm;
+import be.ac.ulg.montefiore.run.jahmm.Observation;
+import be.ac.ulg.montefiore.run.jahmm.Opdf;
 
 
 /**
@@ -86,7 +89,7 @@ public class HmmReader
 	read(Reader reader, OpdfReader<? extends Opdf<O>> opdfReader)
 	throws IOException, FileFormatException
 	{
-		
+		//TODO use Scanner instead of tokenizer
 		StreamTokenizer st = new StreamTokenizer(reader);
 		initSyntaxTable(st);
 		

@@ -21,7 +21,6 @@
 
 package be.ac.ulg.montefiore.run.jahmm;
 
-import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;

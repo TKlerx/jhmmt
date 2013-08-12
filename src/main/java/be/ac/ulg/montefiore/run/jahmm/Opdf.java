@@ -64,7 +64,7 @@ extends Cloneable, Serializable
      *
      * @param oa An array of observations compatible with this function.
      */
-    public void fit(O... oa);
+    public void fit(@SuppressWarnings("unchecked") O... oa);
 
     
     /**

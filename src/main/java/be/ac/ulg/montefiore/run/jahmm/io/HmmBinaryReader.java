@@ -46,7 +46,7 @@ public class HmmBinaryReader
 		ObjectInputStream ois = new ObjectInputStream(stream);
 		
 		try {
-			return (Hmm) ois.readObject();
+			return (Hmm<?>) ois.readObject();
 		}
 		catch(ClassNotFoundException e) {
 			throw new RuntimeException(e);
