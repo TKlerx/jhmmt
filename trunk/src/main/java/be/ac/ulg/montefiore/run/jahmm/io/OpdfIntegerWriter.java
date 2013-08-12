@@ -24,7 +24,6 @@ package be.ac.ulg.montefiore.run.jahmm.io;
 import java.io.IOException;
 import java.io.Writer;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 
 import be.ac.ulg.montefiore.run.jahmm.ObservationInteger;
 import be.ac.ulg.montefiore.run.jahmm.OpdfInteger;

@@ -74,9 +74,6 @@ public class ObservationSequencesReader
 			st.pushBack();
 			List<O> sequence = new ArrayList<O>(readSequence(or, st));
 			
-			if (sequence == null)
-				break;
-			
 			sequences.add(sequence);
 		}
 		

@@ -41,7 +41,7 @@ extends OpdfReader<Opdf<?>>
 		if (st.nextToken() != StreamTokenizer.TT_WORD)
 			throw new FileFormatException("Keyword expected");
 		
-		for (OpdfReader r : new OpdfReader[] {
+		for (OpdfReader<?> r : new OpdfReader[] {
 				new OpdfIntegerReader(),
 				new OpdfGaussianReader(),
 				new OpdfGaussianMixtureReader(),
