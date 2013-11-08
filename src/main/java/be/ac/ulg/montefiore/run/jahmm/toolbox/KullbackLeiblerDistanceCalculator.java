@@ -2,7 +2,7 @@
  * Copyright (c) 2004-2009, Jean-Marc François. All Rights Reserved.
  * Originally licensed under the New BSD license.  See the LICENSE_OLD file.
  * Copyright (c) 2013, Timo Klerx. All Rights Reserved.
- * Now licensed uder LGPL. See the LICENSE file.
+ * Now licensed under LGPL. See the LICENSE file.
  * This file is part of jhmmt.
  * 
  * jhmmt is free software: you can redistribute it and/or modify
@@ -18,12 +18,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with jhmmt.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-
 package be.ac.ulg.montefiore.run.jahmm.toolbox;
 
 import java.util.List;
 
-import be.ac.ulg.montefiore.run.jahmm.*;
+import be.ac.ulg.montefiore.run.jahmm.ForwardBackwardElnCalculator;
+import be.ac.ulg.montefiore.run.jahmm.Hmm;
+import be.ac.ulg.montefiore.run.jahmm.Observation;
 
 /**
  * Computes the distance between HMMs.
@@ -60,15 +61,27 @@ public class KullbackLeiblerDistanceCalculator {
 		for (int i = 0; i < nbSequences; i++) {
 
 			List<O> oseq = new MarkovGenerator<O>(hmm1).observationSequence(sequencesLength);
-			double ln1 = new ForwardBackwardScaledCalculator(oseq, hmm1).lnProbability();
+
+//			double ln1 = new ForwardBackwardCalculator(oseq, hmm1).lnProbability();
+			double ln1 = new ForwardBackwardElnCalculator(oseq, hmm1).lnProbability();
+			// double ln1 = new ForwardBackwardScaledCalculator(oseq,
+			// hmm1).lnProbability();
+			if(ln1 < -744440){
+				System.err.println("ln1 is "+ln1);
+			}
 			if (Double.isNaN(ln1)) {
 				System.err.println("ln1 is NaN for nbSequence=" + i);
-				System.err.println("ObservationSequence is: " + oseq.toString());
+				// System.err.println("ObservationSequence is: " +
+				// oseq.toString());
 			}
-			double ln2 = new ForwardBackwardScaledCalculator(oseq, hmm2).lnProbability();
+//			double ln2 = new ForwardBackwardCalculator(oseq, hmm2).lnProbability();
+			// double ln2 = new ForwardBackwardScaledCalculator(oseq,
+			// hmm2).lnProbability();
+			double ln2 = new ForwardBackwardElnCalculator(oseq, hmm2).lnProbability();
 			if (Double.isNaN(ln2)) {
 				System.err.println("ln2 is NaN for nbSequence=" + i);
-				System.err.println("ObservationSequence is: " + oseq.toString());
+				// System.err.println("ObservationSequence is: " +
+				// oseq.toString());
 			}
 			// System.out.println("ln1="+ln1);
 			// System.out.println("ln2="+ln2);

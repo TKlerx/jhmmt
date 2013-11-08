@@ -2,7 +2,7 @@
  * Copyright (c) 2004-2009, Jean-Marc François. All Rights Reserved.
  * Originally licensed under the New BSD license.  See the LICENSE_OLD file.
  * Copyright (c) 2013, Timo Klerx. All Rights Reserved.
- * Now licensed uder LGPL. See the LICENSE file.
+ * Now licensed under LGPL. See the LICENSE file.
  * This file is part of jhmmt.
  * 
  * jhmmt is free software: you can redistribute it and/or modify
@@ -18,7 +18,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with jhmmt.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-
 package be.ac.ulg.montefiore.run.jahmm;
 
 import java.util.EnumSet;
@@ -116,7 +115,7 @@ public class ForwardBackwardCalculator {
 		alpha[0][i] = hmm.getPi(i) * hmm.getOpdf(i).probability(o);
 		if (Double.isNaN(alpha[0][i])) {
 			System.err.println("hmm.getPi(i)=" + hmm.getPi(i) + "\thmm.getOpdf(i).probability(o)" + hmm.getOpdf(i).probability(o));
-			throw new IllegalStateException("alpha[0]["+i+"] is NaN");
+			throw new IllegalStateException("alpha[0][" + i + "] is NaN");
 		}
 	}
 
@@ -199,12 +198,15 @@ public class ForwardBackwardCalculator {
 	private <O extends Observation> void computeProbability(List<O> oseq, Hmm<? super O> hmm, EnumSet<Computation> flags) {
 		probability = 0.;
 
-		if (flags.contains(Computation.ALPHA))
-			for (int i = 0; i < hmm.nbStates(); i++)
+		if (flags.contains(Computation.ALPHA)) {
+			for (int i = 0; i < hmm.nbStates(); i++) {
 				probability += alpha[oseq.size() - 1][i];
-		else
-			for (int i = 0; i < hmm.nbStates(); i++)
+			}
+		} else {
+			for (int i = 0; i < hmm.nbStates(); i++) {
 				probability += hmm.getPi(i) * hmm.getOpdf(i).probability(oseq.get(0)) * beta[0][i];
+			}
+		}
 	}
 
 	/**
@@ -217,4 +219,5 @@ public class ForwardBackwardCalculator {
 	public double probability() {
 		return probability;
 	}
+
 }
