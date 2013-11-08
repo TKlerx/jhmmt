@@ -2,7 +2,7 @@
  * Copyright (c) 2004-2009, Jean-Marc François. All Rights Reserved.
  * Originally licensed under the New BSD license.  See the LICENSE_OLD file.
  * Copyright (c) 2013, Timo Klerx. All Rights Reserved.
- * Now licensed uder LGPL. See the LICENSE file.
+ * Now licensed under LGPL. See the LICENSE file.
  * This file is part of jhmmt.
  * 
  * jhmmt is free software: you can redistribute it and/or modify
@@ -18,7 +18,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with jhmmt.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-
 package be.ac.ulg.montefiore.run.jahmm;
 
 import java.util.Arrays;
@@ -43,7 +42,7 @@ import org.apache.commons.math3.util.Precision;
  * 1993).
  */
 public class ForwardBackwardScaledCalculator extends ForwardBackwardCalculator {
-	private static final double LOG_OF_0 = Math.log(Double.MIN_VALUE);
+	private static final double LOG_OF_0 = Double.MIN_VALUE;
 	/*
 	 * Warning, the semantic of the alpha and beta elements are changed; in this
 	 * class, they have their value scaled.
@@ -94,6 +93,7 @@ public class ForwardBackwardScaledCalculator extends ForwardBackwardCalculator {
 	}
 
 	/* Computes the content of the scaled alpha array */
+	@Override
 	protected <O extends Observation> void computeAlpha(Hmm<? super O> hmm, List<O> oseq) {
 		alpha = new double[oseq.size()][hmm.nbStates()];
 
@@ -119,6 +119,7 @@ public class ForwardBackwardScaledCalculator extends ForwardBackwardCalculator {
 	 * Computes the content of the scaled beta array. The scaling factors are
 	 * those computed for alpha.
 	 */
+	@Override
 	protected <O extends Observation> void computeBeta(Hmm<? super O> hmm, List<O> oseq) {
 		beta = new double[oseq.size()][hmm.nbStates()];
 
@@ -174,8 +175,14 @@ public class ForwardBackwardScaledCalculator extends ForwardBackwardCalculator {
 			}
 			lnProbability += temp;
 		}
+		if(-1.67 < lnProbability && lnProbability < -1.66){
+			System.err.println("lnProbability is strange. perhaps not all ctFactors have values != 0.0");
+		}
 		if (Double.isInfinite(lnProbability)) {
 			System.err.println("lnProbability is infinite");
+		}
+		if(lnProbability== -744440.0719213703){
+			System.err.println("lnProb is -744440.0719213703");
 		}
 		probability = Math.exp(lnProbability);
 		// System.out.println("probability in ScaledCalc="+probability);

@@ -2,7 +2,7 @@
  * Copyright (c) 2004-2009, Jean-Marc François. All Rights Reserved.
  * Originally licensed under the New BSD license.  See the LICENSE_OLD file.
  * Copyright (c) 2013, Timo Klerx. All Rights Reserved.
- * Now licensed uder LGPL. See the LICENSE file.
+ * Now licensed under LGPL. See the LICENSE file.
  * This file is part of jhmmt.
  * 
  * jhmmt is free software: you can redistribute it and/or modify
@@ -18,12 +18,17 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with jhmmt.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-
 package be.ac.ulg.montefiore.run.jahmm.learn;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.Iterator;
+import java.util.List;
 
-import be.ac.ulg.montefiore.run.jahmm.*;
+import be.ac.ulg.montefiore.run.jahmm.ForwardBackwardCalculator;
+import be.ac.ulg.montefiore.run.jahmm.Hmm;
+import be.ac.ulg.montefiore.run.jahmm.Observation;
+import be.ac.ulg.montefiore.run.jahmm.Opdf;
 
 /**
  * An implementation of the Baum-Welch learning algorithm. This algorithm finds
@@ -85,9 +90,9 @@ public class BaumWelchLearner {
 
 			for (int i = 0; i < hmm.nbStates(); i++)
 				for (int t = 0; t < obsSeq.size() - 1; t++) {
-					if (Double.isNaN(gamma[t][i])) {
-						System.err.println("gamma[" + t + "][" + i + "] is NaN");
-					}
+					// if (Double.isNaN(gamma[t][i])) {
+					// System.err.println("gamma[" + t + "][" + i + "] is NaN");
+					// }
 					aijDen[i] += gamma[t][i];
 
 					for (int j = 0; j < hmm.nbStates(); j++)
@@ -123,19 +128,22 @@ public class BaumWelchLearner {
 			for (List<? extends O> obsSeq : sequences) {
 				for (int t = 0; t < obsSeq.size(); t++, j++) {
 					sum += weights[j] = allGamma[o][t][i];
-					if (Double.isNaN(allGamma[o][t][i])) {
-						throw new IllegalStateException(String.format("allGamma[%d][%d][%d] is NaN", o, t, i));
-					}
+					// if (Double.isNaN(allGamma[o][t][i])) {
+					// throw new
+					// IllegalStateException(String.format("allGamma[%d][%d][%d] is NaN",
+					// o, t, i));
+					// }
 				}
 				o++;
 			}
-//			System.out.println("Sum=" + sum);
+			// System.out.println("Sum=" + sum);
 			for (j--; j >= 0; j--) {
-				if(sum == 0.0){
-					weights[j] = 0;
-				}else{
-				weights[j] /= sum;}
+				// if(sum == 0.0){
+				// weights[j] = 0;
+				// }else{
+				weights[j] /= sum;
 			}
+			// }
 
 			Opdf<O> opdf = nhmm.getOpdf(i);
 			opdf.fit(observations, weights);
@@ -146,6 +154,8 @@ public class BaumWelchLearner {
 
 	protected <O extends Observation> ForwardBackwardCalculator generateForwardBackwardCalculator(List<? extends O> sequence, Hmm<O> hmm) {
 		return new ForwardBackwardCalculator(sequence, hmm, EnumSet.allOf(ForwardBackwardCalculator.Computation.class));
+		// return new ForwardBackwardLnCalculator(sequence, hmm,
+		// EnumSet.allOf(ForwardBackwardLnCalculator.Computation.class));
 	}
 
 	/**
@@ -189,10 +199,11 @@ public class BaumWelchLearner {
 					// XXX This is experimental
 
 					double temp = fbc.alphaElement(t, i) * hmm.getAij(i, j) * hmm.getOpdf(j).probability(o) * fbc.betaElement(t + 1, j) / probability;
-					if (Double.isNaN(temp)) {
-						// System.err.println("fbc.alphaElement(t, i) * hmm.getAij(i, j) * hmm.getOpdf(j).probability(o) * fbc.betaElement(t + 1, j) / probability is NaN");
-						temp = 0;
-					}
+					// if (Double.isNaN(temp)) {
+					// System.err
+					// .println("fbc.alphaElement(t, i) * hmm.getAij(i, j) * hmm.getOpdf(j).probability(o) * fbc.betaElement(t + 1, j) / probability is NaN");
+					// temp = 0;
+					// }
 					xi[t][i][j] = temp;
 				}
 		}

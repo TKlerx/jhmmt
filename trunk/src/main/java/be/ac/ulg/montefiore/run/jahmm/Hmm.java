@@ -2,7 +2,7 @@
  * Copyright (c) 2004-2009, Jean-Marc François. All Rights Reserved.
  * Originally licensed under the New BSD license.  See the LICENSE_OLD file.
  * Copyright (c) 2013, Timo Klerx. All Rights Reserved.
- * Now licensed uder LGPL. See the LICENSE file.
+ * Now licensed under LGPL. See the LICENSE file.
  * This file is part of jhmmt.
  * 
  * jhmmt is free software: you can redistribute it and/or modify
@@ -22,7 +22,9 @@ package be.ac.ulg.montefiore.run.jahmm;
 
 import java.io.Serializable;
 import java.text.NumberFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 
 /** 
@@ -51,7 +53,7 @@ implements Serializable, Cloneable
 {		
 	private double pi[];
 	private double a[][];
-	private ArrayList<Opdf<O>> opdfs;
+	private final ArrayList<Opdf<O>> opdfs;
 	
 	
 	/**
@@ -73,11 +75,11 @@ implements Serializable, Cloneable
 		opdfs = new ArrayList<Opdf<O>>(nbStates);
 		
 		for (int i = 0; i < nbStates; i++) {
-			pi[i] = 1. / ((double) nbStates);
+			pi[i] = 1. / (nbStates);
 			opdfs.add(opdfFactory.factor());
 			
 			for (int j = 0; j < nbStates; j++)
-				a[i][j] = 1. / ((double) nbStates);
+				a[i][j] = 1. / (nbStates);
 		}
 	}
 
@@ -231,9 +233,11 @@ implements Serializable, Cloneable
 	public void setAij(int i, int j, double value)
 	{
 		if(Double.isNaN(value)){
-			System.err.println("SetAij should be set to NaN for i="+i+"; j="+j);
+			// System.err.println("SetAij should be set to NaN for i="+i+"; j="+j);
+			a[i][j] = 0;
+		} else {
+			a[i][j] = value;
 		}
-		a[i][j] = value;
 	}
 	
 	
@@ -276,7 +280,8 @@ implements Serializable, Cloneable
 	 */
 	public double lnProbability(List<? extends O> oseq)
 	{
-		return (new ForwardBackwardScaledCalculator(oseq, this)).
+		// return (new ForwardBackwardScaledCalculator(oseq, this)).
+		return (new ForwardBackwardElnCalculator(oseq, this)).
 		lnProbability();
 	}
 	
@@ -329,7 +334,7 @@ implements Serializable, Cloneable
 				s += " " + nf.format(getAij(i,j));
 			s += "\n";
 			
-			s += "  Opdf: " + ((Opdf<O>) getOpdf(i)).toString(nf) + "\n";
+			s += "  Opdf: " + getOpdf(i).toString(nf) + "\n";
 		}
 			
 		return s;
@@ -341,12 +346,14 @@ implements Serializable, Cloneable
 	 * 
 	 * @return A textual description of this HMM.
 	 */
+	@Override
 	public String toString()
 	{
 		return toString(NumberFormat.getInstance());
 	}
 
 	
+	@Override
 	public Hmm<O> clone()
 	throws CloneNotSupportedException
 	{

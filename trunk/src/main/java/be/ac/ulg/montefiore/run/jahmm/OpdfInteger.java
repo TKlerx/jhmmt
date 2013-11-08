@@ -2,7 +2,7 @@
  * Copyright (c) 2004-2009, Jean-Marc François. All Rights Reserved.
  * Originally licensed under the New BSD license.  See the LICENSE_OLD file.
  * Copyright (c) 2013, Timo Klerx. All Rights Reserved.
- * Now licensed uder LGPL. See the LICENSE file.
+ * Now licensed under LGPL. See the LICENSE file.
  * This file is part of jhmmt.
  * 
  * jhmmt is free software: you can redistribute it and/or modify
@@ -18,7 +18,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with jhmmt.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-
 package be.ac.ulg.montefiore.run.jahmm;
 
 import java.text.NumberFormat;
@@ -33,7 +32,7 @@ import java.util.Random;
 public class OpdfInteger implements Opdf<ObservationInteger> {
 	private double[] probabilities;
 	private static Random masterSeed = new Random(1232343453445l);
-	private Random r;
+	private final Random r;
 
 	/**
 	 * Builds a new probability distribution which operates on integer values.
@@ -53,7 +52,7 @@ public class OpdfInteger implements Opdf<ObservationInteger> {
 		probabilities = new double[nbEntries];
 
 		for (int i = 0; i < nbEntries; i++)
-			probabilities[i] = 1. / ((double) nbEntries);
+			probabilities[i] = 1. / (nbEntries);
 	}
 
 	/**
@@ -91,6 +90,7 @@ public class OpdfInteger implements Opdf<ObservationInteger> {
 		return probabilities.length;
 	}
 
+	@Override
 	public double probability(ObservationInteger o) {
 		if (o.value > probabilities.length - 1)
 			throw new IllegalArgumentException("Wrong observation value");
@@ -100,6 +100,7 @@ public class OpdfInteger implements Opdf<ObservationInteger> {
 		return probabilities[o.value];
 	}
 
+	@Override
 	public ObservationInteger generate() {
 		double rand = r.nextDouble();
 
@@ -114,28 +115,37 @@ public class OpdfInteger implements Opdf<ObservationInteger> {
 		return new ObservationInteger(probabilities.length - 1);
 	}
 
+	@Override
 	public void fit(ObservationInteger... oa) {
 		fit(Arrays.asList(oa));
 	}
 
+	@Override
 	public void fit(Collection<? extends ObservationInteger> co) {
+		// try {
 		if (co.isEmpty())
 			throw new IllegalArgumentException("Empty observation set");
 
 		for (int i = 0; i < probabilities.length; i++)
 			probabilities[i] = 0.;
-
 		for (ObservationInteger o : co)
 			probabilities[o.value]++;
 
 		for (int i = 0; i < probabilities.length; i++)
 			probabilities[i] /= co.size();
+		// } catch (ArrayIndexOutOfBoundsException e) {
+		// System.err.println("Probabilities has length " + probabilities.length
+		// + ", but the Collection looks like this: " + co);
+		// throw e;
+		// }
 	}
 
+	@Override
 	public void fit(ObservationInteger[] o, double[] weights) {
 		fit(Arrays.asList(o), weights);
 	}
 
+	@Override
 	public void fit(Collection<? extends ObservationInteger> co, double[] weights) {
 		if (co.isEmpty() || co.size() != weights.length)
 			throw new IllegalArgumentException();
@@ -144,14 +154,15 @@ public class OpdfInteger implements Opdf<ObservationInteger> {
 
 		int i = 0;
 		for (ObservationInteger o : co) {
-			if(Double.isNaN(weights[i])){
-				throw new IllegalStateException("weights[" + i + "] is NaN");
-
-			}
+			// if(Double.isNaN(weights[i])){
+			// throw new IllegalStateException("weights[" + i + "] is NaN");
+			//
+			// }
 			probabilities[o.value] += weights[i++];
 		}
 	}
 
+	@Override
 	public OpdfInteger clone() {
 		try {
 			OpdfInteger opdf = (OpdfInteger) super.clone();
@@ -162,10 +173,12 @@ public class OpdfInteger implements Opdf<ObservationInteger> {
 		}
 	}
 
+	@Override
 	public String toString() {
 		return toString(NumberFormat.getInstance());
 	}
 
+	@Override
 	public String toString(NumberFormat numberFormat) {
 		String s = "Integer distribution --- ";
 
