@@ -20,15 +20,20 @@
  ******************************************************************************/
 package be.ac.ulg.montefiore.run.jahmm;
 
-import java.text.*;
+import java.io.Serializable;
+import java.text.NumberFormat;
 
 
 /**
  * This class holds an integer observation.
  */
 public class ObservationInteger extends Observation
-implements CentroidFactory<ObservationInteger>
+ implements CentroidFactory<ObservationInteger>, Serializable
 {	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8170299025434208362L;
 	/**
 	 * The observation's value.
 	 */
@@ -51,12 +56,14 @@ implements CentroidFactory<ObservationInteger>
 	 *
 	 * @return The corresponding observation.
 	 */
+	@Override
 	public Centroid<ObservationInteger> factor()
 	{
 		return new CentroidObservationInteger(this);
 	}	
 
 	
+	@Override
 	public String toString(NumberFormat numberFormat)
 	{
 		return numberFormat.format(value);

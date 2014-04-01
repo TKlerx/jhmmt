@@ -208,7 +208,7 @@ public class ForwardBackwardElnCalculator extends ForwardBackwardCalculator {
 
 	public double gammaElement(int t, int i) {
 		if (elnGamma == null)
-			throw new UnsupportedOperationException("gamma array has not " + "been computed");
+			throw new UnsupportedOperationException("gamma array has not " + " been computed");
 
 		return elnGamma[t][i];
 	}
