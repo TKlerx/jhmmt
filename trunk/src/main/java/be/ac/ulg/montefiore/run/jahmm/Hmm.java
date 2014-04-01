@@ -280,8 +280,8 @@ implements Serializable, Cloneable
 	 */
 	public double lnProbability(List<? extends O> oseq)
 	{
-		// return (new ForwardBackwardScaledCalculator(oseq, this)).
-		return (new ForwardBackwardElnCalculator(oseq, this)).
+		return (new ForwardBackwardScaledCalculator(oseq, this)).
+		// return (new ForwardBackwardElnCalculator(oseq, this)).
 		lnProbability();
 	}
 	
