@@ -67,16 +67,18 @@ public class ForwardBackwardScaledCalculator extends ForwardBackwardCalculator {
 	 *            is always computed.
 	 */
 	public <O extends Observation> ForwardBackwardScaledCalculator(List<? extends O> oseq, Hmm<O> hmm, EnumSet<Computation> flags) {
-		if (oseq.isEmpty())
+		if (oseq.isEmpty()) {
 			throw new IllegalArgumentException();
+		}
 
 		ctFactors = new double[oseq.size()];
 		Arrays.fill(ctFactors, 0.);
 
 		computeAlpha(hmm, oseq);
 
-		if (flags.contains(Computation.BETA))
+		if (flags.contains(Computation.BETA)) {
 			computeBeta(hmm, oseq);
+		}
 		// System.out.println("List for ForwardBackwardScaledCalc=" + oseq);
 		computeProbability(oseq, hmm, flags);
 	}
@@ -97,13 +99,15 @@ public class ForwardBackwardScaledCalculator extends ForwardBackwardCalculator {
 	protected <O extends Observation> void computeAlpha(Hmm<? super O> hmm, List<O> oseq) {
 		alpha = new double[oseq.size()][hmm.nbStates()];
 
-		for (int i = 0; i < hmm.nbStates(); i++)
+		for (int i = 0; i < hmm.nbStates(); i++) {
 			computeAlphaInit(hmm, oseq.get(0), i);
+		}
 		scale(ctFactors, alpha, 0);
 
 		Iterator<? extends O> seqIterator = oseq.iterator();
-		if (seqIterator.hasNext())
+		if (seqIterator.hasNext()) {
 			seqIterator.next();
+		}
 
 		for (int t = 1; t < oseq.size(); t++) {
 			O observation = seqIterator.next();
@@ -123,14 +127,16 @@ public class ForwardBackwardScaledCalculator extends ForwardBackwardCalculator {
 	protected <O extends Observation> void computeBeta(Hmm<? super O> hmm, List<O> oseq) {
 		beta = new double[oseq.size()][hmm.nbStates()];
 
-		for (int i = 0; i < hmm.nbStates(); i++)
+		for (int i = 0; i < hmm.nbStates(); i++) {
 			beta[oseq.size() - 1][i] = 1. / ctFactors[oseq.size() - 1];
+		}
 
-		for (int t = oseq.size() - 2; t >= 0; t--)
+		for (int t = oseq.size() - 2; t >= 0; t--) {
 			for (int i = 0; i < hmm.nbStates(); i++) {
 				computeBetaStep(hmm, oseq.get(t + 1), t, i);
 				beta[t][i] /= ctFactors[t];
 			}
+		}
 	}
 
 	/* Normalize alpha[t] and put the normalization factor in ctFactors[t] */
@@ -180,9 +186,6 @@ public class ForwardBackwardScaledCalculator extends ForwardBackwardCalculator {
 		}
 		if (Double.isInfinite(lnProbability)) {
 			System.err.println("lnProbability is infinite");
-		}
-		if(lnProbability== -744440.0719213703){
-			System.err.println("lnProb is -744440.0719213703");
 		}
 		probability = Math.exp(lnProbability);
 		// System.out.println("probability in ScaledCalc="+probability);
