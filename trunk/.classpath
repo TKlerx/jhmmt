@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="org/apache/" kind="src" path="src/main/java"/>
+	<classpathentry excluding="be/ac/ulg/montefiore/run/jahmm/HmmOld.java|be/ac/ulg/montefiore/run/jahmm/ForwardBackwardCalculatorOld.java|be/ac/ulg/montefiore/run/jahmm/ForwardBackwardScaledCalculatorOld.java|be/ac/ulg/montefiore/run/jahmm/KMeansLearnerOld.java|be/ac/ulg/montefiore/run/jahmm/KullbackLeiblerDistanceCalculatorOld.java|be/ac/ulg/montefiore/run/jahmm/MarkovGeneratorOld.java|be/ac/ulg/montefiore/run/jahmm/toolbox/KullbackLeiblerDistanceCalculatorOld.java|be/ac/ulg/montefiore/run/jahmm/toolbox/MarkovGeneratorOld.java|be/ac/ulg/montefiore/run/jahmm/learn/KMeansLearnerOld.java|be/ac/ulg/montefiore/run/jahmm/OpdfIntegerOld.java" kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/test/java"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
-
-	<classpathentry kind="lib" path="lib/guava-14.0.1.jar"/>
-	<classpathentry kind="lib" path="lib/slf4j-api-1.7.5.jar"/>
-	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.7.5.jar"/>
-		<classpathentry kind="lib" path="lib/commons-lang3-3.4.jar">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.4.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/jhmmt/lib/commons-lang3-3.4-javadoc.jar!/"/>
 		</attributes>
@@ -18,5 +13,10 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/jhmmt/lib/commons-math3-3.4.1-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/guava-14.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
