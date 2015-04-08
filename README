@@ -12,75 +12,11 @@ is particularly well suited for research and academic use.
 This project was imported from http://code.google.com/p/jhmmt/
 The website of the old project is http://code.google.com/p/jahmm/
 
-
-
-COMPILING
-~~~~~~~~~
-
-To compile the library, you simply need to compile all the files held
-in the src/main/java directory.  Thus, simply calling 'javac' with all the
-.java files held in the 'src' directory as arguments compiles everything.
-
-Compiling can be done using the 'maven' build tool (see maven.apache.org) by
-typing 'mvn compile' in the root directory of the distribution (where the
-'pom.xml' file resides).
-
-This can also be done using 'ant' (see http://ant.apache.org/) by
-typing 'ant' in the root directory of the distribution (where the 'build.xml'
-file resides).
-
-Jhmmt requires Java 1.5.0.
-
-The generated .class files will be put in the 'target/classes' directory.
-
-
-
-RUNNING
-~~~~~~~
-
-Notice that if you just want to try the library, you don't have to
-compile it.  '.jar' files for each jahmm release are available on the
-website; to use it, simply launch:
-
-javac -classpath /path/to/jhmmt-<version>.jar Myprogram.java
-
-...to compile your program, and:
-
-java -cp /path/to/jhmmt-<version>.jar myMainClass
-
-(e.g. java -cp /home/smith/java_class/jhmmt-0.6.2.jar test/Testing)
-
-...to run it.
-You can also put the '.jar' file in your classpath.
-
-
-
-TESTING
-~~~~~~~
-
-Once the library has been compiled, you can launch a sample program by typing:
-
-mvn -Psample compile
-(if you use maven)
-
-or
-
-ant sample
-(if you use ant)
-
-...in the distribution root directory.  This launches the 'SimpleExample.java'
-sample program.
-
-Regression (JUnit) tests have also been written ; see build.xml/pom.xml and the 
-src/test/java/be/ac/ulg/montefiore/run/jahmm/test directory.  To launch those tests,
-use 'ant junit' or 'mvn test'.
-
+Jhmmt requires Java 1.7.0 (but should also run under java 1.5)
 
 FILES
 ~~~~~
 
-- pom.xml: the 'maven' project file.
-- build.xml: the 'ant' build file.
 - src/main/java:       all the .java files.
   src/main/.../distributions: Pseudo random distributions.
   src/main/.../jahmm: The jahmm library itself.  This directory holds one
