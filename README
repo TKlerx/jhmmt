@@ -29,7 +29,7 @@ This can also be done using 'ant' (see http://ant.apache.org/) by
 typing 'ant' in the root directory of the distribution (where the 'build.xml'
 file resides).
 
-Jhmmt requires Java 1.5.0.
+Jhmmt requires Java 1.7.0 (but should also run under java 1.5)
 
 The generated .class files will be put in the 'target/classes' directory.
 
