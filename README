@@ -1,18 +1,15 @@
-JAHMM   -   QUICK START GUIDE
+JHMMT   -   QUICK START GUIDE
 -----------------------------
 
 
-Jahmm is a Java library implementing the various, well-known algorithms
+Jhmmt is a Java library implementing the various, well-known algorithms
 related to Hidden Makov Models (HMMs for short).
 
 
 This library is short and simple.  It's been written for clarity.  It
 is particularly well suited for research and academic use.
 
-The website associated to this library is:
-http://code.google.com/p/jhmmt/
-Most information related to this software can be found there.
-
+This project was imported from http://code.google.com/p/jhmmt/
 The website of the old project is http://code.google.com/p/jahmm/
 
 
@@ -32,7 +29,7 @@ This can also be done using 'ant' (see http://ant.apache.org/) by
 typing 'ant' in the root directory of the distribution (where the 'build.xml'
 file resides).
 
-Jahmm requires Java 1.5.0.
+Jhmmt requires Java 1.5.0.
 
 The generated .class files will be put in the 'target/classes' directory.
 
@@ -45,13 +42,13 @@ Notice that if you just want to try the library, you don't have to
 compile it.  '.jar' files for each jahmm release are available on the
 website; to use it, simply launch:
 
-javac -classpath /path/to/jahmm-<version>.jar Myprogram.java
+javac -classpath /path/to/jhmmt-<version>.jar Myprogram.java
 
 ...to compile your program, and:
 
-java -cp /path/to/jahmm-<version>.jar myMainClass
+java -cp /path/to/jhmmt-<version>.jar myMainClass
 
-(e.g. java -cp /home/smith/java_class/jahmm-0.6.2.jar test/Testing)
+(e.g. java -cp /home/smith/java_class/jhmmt-0.6.2.jar test/Testing)
 
 ...to run it.
 You can also put the '.jar' file in your classpath.
@@ -87,7 +84,7 @@ FILES
 - src/main/java:       all the .java files.
   src/main/.../distributions: Pseudo random distributions.
   src/main/.../jahmm: The jahmm library itself.  This directory holds one
-             directory per java package; see the jahmm website for
+             directory per java package; see the jhmmt website for
              more information about each of them.
   src/test/: Regression tests.
   src/main/.../jahmm/apps: Simple applications.
@@ -100,9 +97,6 @@ FILES
 
 CONTACT
 ~~~~~~~
-
-Jahmm's author is Jean-Marc Francois.  
-Feel free to send comments and questions related to this library at:
-. http://code.google.com/p/jahmm/issues/list (if you have an issue with the library)
-. http://groups.google.com/group/jahmm-discuss or jahmm-discuss@googlegroups.com
-  (for questions/comments)
+The current author is Timo Klerx.
+Jahmm's former author was Jean-Marc Francois.  
+Feel free to send comments and questions related to this library in the issue tracker or fix/extend and open pull requests
