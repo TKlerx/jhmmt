@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="be/ac/ulg/montefiore/run/jahmm/HmmOld.java|be/ac/ulg/montefiore/run/jahmm/ForwardBackwardCalculatorOld.java|be/ac/ulg/montefiore/run/jahmm/ForwardBackwardScaledCalculatorOld.java|be/ac/ulg/montefiore/run/jahmm/KMeansLearnerOld.java|be/ac/ulg/montefiore/run/jahmm/KullbackLeiblerDistanceCalculatorOld.java|be/ac/ulg/montefiore/run/jahmm/MarkovGeneratorOld.java|be/ac/ulg/montefiore/run/jahmm/toolbox/KullbackLeiblerDistanceCalculatorOld.java|be/ac/ulg/montefiore/run/jahmm/toolbox/MarkovGeneratorOld.java|be/ac/ulg/montefiore/run/jahmm/learn/KMeansLearnerOld.java|be/ac/ulg/montefiore/run/jahmm/OpdfIntegerOld.java" kind="src" path="src/main/java"/>
-	<classpathentry kind="src" path="src/test/java"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="**/*Old.java" including="**/*.java" kind="src" output="target/classes" path="src/main/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="lib/commons-lang3-3.4.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/jhmmt/lib/commons-lang3-3.4-javadoc.jar!/"/>
@@ -14,5 +23,15 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>

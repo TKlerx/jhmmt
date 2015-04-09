@@ -4,17 +4,17 @@
  * Copyright (c) 2013, Timo Klerx. All Rights Reserved.
  * Now licensed under LGPL. See the LICENSE file.
  * This file is part of jhmmt.
- * 
+ *
  * jhmmt is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * jhmmt is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with jhmmt.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
@@ -22,7 +22,7 @@ package be.ac.ulg.montefiore.run.jahmm.toolbox;
 
 import java.util.List;
 
-import be.ac.ulg.montefiore.run.jahmm.ForwardBackwardElnCalculator;
+import be.ac.ulg.montefiore.run.jahmm.ForwardBackwardScaledCalculator;
 import be.ac.ulg.montefiore.run.jahmm.Hmm;
 import be.ac.ulg.montefiore.run.jahmm.Observation;
 
@@ -45,7 +45,7 @@ public class KullbackLeiblerDistanceCalculator {
 
 	/**
 	 * Computes the Kullback-Leibler distance between two HMMs.
-	 * 
+	 *
 	 * @param hmm1
 	 *            The first HMM against which the distance is computed. The
 	 *            distance is mesured with regard to this HMM (this must be
@@ -62,22 +62,21 @@ public class KullbackLeiblerDistanceCalculator {
 
 			List<O> oseq = new MarkovGenerator<O>(hmm1).observationSequence(sequencesLength);
 
-//			double ln1 = new ForwardBackwardCalculator(oseq, hmm1).lnProbability();
-			double ln1 = new ForwardBackwardElnCalculator(oseq, hmm1).lnProbability();
-			// double ln1 = new ForwardBackwardScaledCalculator(oseq,
+			// double ln1 = new ForwardBackwardCalculator(oseq,
 			// hmm1).lnProbability();
-			if(ln1 < -744440){
-				System.err.println("ln1 is "+ln1);
-			}
+			// double ln1 = new ForwardBackwardElnCalculator(oseq,
+			// hmm1).lnProbability();
+			double ln1 = new ForwardBackwardScaledCalculator(oseq, hmm1).lnProbability();
 			if (Double.isNaN(ln1)) {
 				System.err.println("ln1 is NaN for nbSequence=" + i);
 				// System.err.println("ObservationSequence is: " +
 				// oseq.toString());
 			}
-//			double ln2 = new ForwardBackwardCalculator(oseq, hmm2).lnProbability();
-			// double ln2 = new ForwardBackwardScaledCalculator(oseq,
+			// double ln2 = new ForwardBackwardCalculator(oseq,
 			// hmm2).lnProbability();
-			double ln2 = new ForwardBackwardElnCalculator(oseq, hmm2).lnProbability();
+			double ln2 = new ForwardBackwardScaledCalculator(oseq, hmm2).lnProbability();
+			// double ln2 = new ForwardBackwardElnCalculator(oseq,
+			// hmm2).lnProbability();
 			if (Double.isNaN(ln2)) {
 				System.err.println("ln2 is NaN for nbSequence=" + i);
 				// System.err.println("ObservationSequence is: " +
@@ -97,7 +96,7 @@ public class KullbackLeiblerDistanceCalculator {
 
 	/**
 	 * Returns the number of sequences generated to estimate a distance.
-	 * 
+	 *
 	 * @return The number of generated sequences.
 	 */
 	public int getNbSequences() {
@@ -106,7 +105,7 @@ public class KullbackLeiblerDistanceCalculator {
 
 	/**
 	 * Sets the number of sequences generated to estimate a distance.
-	 * 
+	 *
 	 * @param nb
 	 *            The number of generated sequences.
 	 */
@@ -116,7 +115,7 @@ public class KullbackLeiblerDistanceCalculator {
 
 	/**
 	 * Returns the length of sequences generated to estimate a distance.
-	 * 
+	 *
 	 * @return The sequences length.
 	 */
 	public int getSequencesLength() {
@@ -125,7 +124,7 @@ public class KullbackLeiblerDistanceCalculator {
 
 	/**
 	 * Sets the length of sequences generated to estimate a distance.
-	 * 
+	 *
 	 * @param length
 	 *            The sequences length.
 	 */
